@@ -23,7 +23,6 @@ const messageType: Message = { message: 'test' };
 
 // Typescript infers types narrowly when they are not expliclty defined.
 const inferredType = { message: 'test' };
-        //^?
 
 
 
@@ -50,5 +49,5 @@ const inferredType = { message: 'test' };
 
 
 // TYPE SYSTEM FEATURES AS TOOLS
-
-
+// The following examples are often simplified
+// We are going to go fast

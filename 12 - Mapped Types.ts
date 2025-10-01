@@ -25,13 +25,11 @@ const uiActionHandlerImpl: UIActionsHandlers = {
 
 // mapped types get us an object with the right shape, but not the right key names
 type UIActionsHandlers2 = {
-        //^?
     [K in keyof UIActionsConfig]: (input: UIActionsConfig[K]) => void;
 }
 
 // combining a mapped type with string literal utility types gets us all the way there
 type UIActionsHandlers3 = {
-    //^?
     [K in keyof UIActionsConfig as `on${Capitalize<K>}`]: (input: UIActionsConfig[K]) => void;
 }
 
@@ -42,16 +40,44 @@ const uiActionHandlerImpl2: UIActionsHandlers3 = {
 }
 
 
+
+
 //mapped types can be used for type transformations
 
 // setting up some generic Angular-like form types
 type FormControl<T> = { value: T }
 type FormGroup<T> = {
-    controls: { [K in keyof T]: FormControl<T[K]> | FormGroup<T[K]> }
+    controls: { [K in keyof T]: AbstractControl<T[K]> }
 }
 type FormArray<T> = FormGroup<T>[]
 type AbstractControl<T> = FormArray<T> | FormGroup<T> | FormControl<T>
 
+interface Address {
+    city: string;
+    state: string;
+}
+
+interface Person {
+    firstName: string;
+    lastName: string;
+    address: Address
+    phoneNumbers: number[]
+}
+
+//if all the types are primitives, we can map directly and return a form type
+type FormFromSimpleObject<T> = {
+    [K in keyof T]: FormControl<T[K]>
+}
+
+type AddressForm = FormFromSimpleObject<Address>;
+
+
+//if we have more complex nested objects, you can use conditional types
+type FormFromComplexObject<T> = {
+    [K in keyof T]: T[K] extends string | number | boolean ? FormControl<T[K]> : T[K] extends (infer U)[] ? FormArray<U> : FormGroup<T[K]>;
+}
+
+type PersonForm = FormFromComplexObject<Person>;
 
 
 
@@ -62,40 +88,38 @@ type AbstractControl<T> = FormArray<T> | FormGroup<T> | FormControl<T>
 
 //imagine we have a list of custom form validations that the client implements
 //but the config comes from the api
-//how do we ensure no one
-export const APP_CONFIG = {
+//how do we ensure we always have a validator that represents the config and vice versa?
+
+export const APP_VALIDATORS = {
     required: () => {},
-    maxlength: (maxLength: number) => Validators.maxLength(maxLength),
-    // minlength: (minLength: number) => Validators.minLength(minLength)
+    maxlength: (maxLength: number) => {},
+    minlength: (minLength: number) => {}
 } as const;
 
 // Supported validator keys
-type ValidatorKeys = keyof typeof HALIBUT_VALIDATORS;
+type ValidatorKeys = keyof typeof APP_VALIDATORS;
 
 // Specifies all the possible configs for each validation. These represent the possible shapes from the API.
-// Adding a key to the HALIBUT_VALIDATORS will trigger a compilation error if there is not a corresponding key here.
+// Adding a key to the APP_VALIDATORS will trigger a compilation error if there is not a corresponding key here.
 interface ValidationConfigList {
     required: ValidationName<'required'>,
-    maxlength: ValidationName<'maxlength'> & ValidationConfig<MaxLengthValidationConfig>
-    // minlength: ValidationName<'required'>,
+    maxlength: ValidationName<'maxlength'>
+    minlength: ValidationName<'required'>,
 }
 
-// This type will throw a compilation error if the keys of HALIBUT_VALIDATORS contains any keys not found in ValidationConfig
-export type Validation = {
-    [K in keyof typeof HALIBUT_VALIDATORS]: ValidationConfigList[K]
-}[keyof typeof HALIBUT_VALIDATORS];
+// This type will throw a compilation error if the keys of APP_VALIDATORS contains any keys not found in ValidationConfigList
+export type VerifyValidationConfigList = {
+    //iterate over the keys of APP_VALIDATORS, and use those keys to index ValidationConfigList
+    //for any K, if it isn't in ValidationConfigList, a compliation error is thrown
+    [K in keyof typeof APP_VALIDATORS]: ValidationConfigList[K]
+};
 
-// This type will throw a compilation error if the keys of ValidationConfig contains any keys not found in HALIBUT_VALIDATORS
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type ValidatorTypes = {
-    [K in keyof ValidationConfigList]: typeof HALIBUT_VALIDATORS[K]
-}[keyof ValidationConfigList];
+// This type will throw a compilation error if the keys of ValidationConfig contains any keys not found in APP_VALIDATORS
+type VerifyAppValidatorsList = {
+    //the inverse of the type above
+    //iterate over the keys of ValidationConfigList, and use those keys to index the type definition of APP_VALIDATORS
+    //for any K, if it isn't in APP_VALIDATORS, a compilation error is thrown
+    [K in keyof ValidationConfigList]: typeof APP_VALIDATORS[K]
+};
 
-interface ValidationName<T extends ValidatorKeys> {name: T};
-interface ValidationConfig<T> {config: T};
-
-interface MaxLengthValidationConfig {
-    value: number;
-}
-
-export interface ErrorMessage {message: string};
+interface ValidationName<T extends ValidatorKeys> {name: T}

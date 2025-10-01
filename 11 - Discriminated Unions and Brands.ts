@@ -39,7 +39,6 @@ type Username = Brand<string, 'username'>;
 
 // The type assertion "brands" the string as also a Username
 const username1 = 'jsmith12' as Username;
-     //^?
 
 // We still get all the out of box string functionality
 username1.concat('test');

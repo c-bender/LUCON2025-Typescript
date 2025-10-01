@@ -21,7 +21,6 @@ getColorCode('Invalid On Purpose')
 function useColor(color: Color): void {
     if (color == 'red') {
         color
-        //^?
     }
 }
 

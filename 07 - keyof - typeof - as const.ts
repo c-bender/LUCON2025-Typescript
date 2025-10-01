@@ -6,13 +6,11 @@ type Payment = {
 }
 
 type PaymentType = Payment['paymentType']
-        //^?
 
 
 // using the KEYOF operator returns a union type of the keys of an object
 
 type PaymentKeys = keyof Payment
-      //^?
 
 
 // using the TYPEOF operator at compile time returns the type of a const value
@@ -24,7 +22,6 @@ const payment = {
 
 //notice the inferred type is not automatically narrowed. E.g. the type of customerName is 'string' not the string literal 'John Smith'
 type PaymentFromConst = typeof payment;
-        //^?
 
 
 
@@ -37,7 +34,6 @@ const payment2 = {
 
 // here our properties are now readonly and they are narrowed to the greatest possible degree
 type PaymentFromConst2 = typeof payment2;
-        //^?
 
 
 // using 'as const' can be helpful when you want to use a list of options as both a type and a value
@@ -46,7 +42,6 @@ type PaymentFromConst2 = typeof payment2;
 // You want the string literals that populate the dropdown to also represent a specific type to strongly type your handler function
 
 const EMAIL_ACTIONS = ['Reply', 'Delete', 'Forward']
-        //^?
 
 //note that the type is generically string[]
 
@@ -62,14 +57,12 @@ function handleActions(action: string) {
 // use as const and other tricks:
 
 const EMAIL_ACTIONS2 = ['Reply', 'Delete', 'Forward'] as const;
-        //^?
 
 //using 'as const' gets us a type with an array of the actual string literals
 
 // use typeof to get the type, and use [number] to iterate through the indices of the array
 // returns a type that is a union of the VALUES, but lifted to the type level
 type EmailActions = typeof EMAIL_ACTIONS2[number];
-        //^?
 
 
 

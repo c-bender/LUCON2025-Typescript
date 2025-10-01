@@ -3,12 +3,10 @@
 type Colors = 'red' | 'green' | 'blue';
 
 type NonRed = Exclude<Colors, 'red'>;
-      //^?
 
 // note that you can pass a union type in the second param
 
 type OnlyRed = Extract<Colors, 'red'>;
-      //^?
 
 
 // Note that the type parameters are not themselves strongly typed
@@ -34,7 +32,6 @@ type SubsetOfUnion<T extends SubsetOperation, U, V extends U> =
         : U extends V ? never : U;
 
 type Size = SubsetOfUnion<'include from', ElementSize, 'small' | 'medium' | 'large'>;
-     //^?
 
 
 // So why are the built-in types not written like this? It's to allow greater flexibility in matching patterns.
@@ -60,7 +57,6 @@ type Shape = Circle | Square | Triangle;
 
 // We want to extract all shapes that have a 'radius' property
 type HasRadius = Extract<Shape, { radius: number }>;
-      //^?
 
 // If there was a `U extends T` bound, this wouldn't work
 // because `{ radius: number }` doesn't extend `Circle | Square | Triangle` directly
