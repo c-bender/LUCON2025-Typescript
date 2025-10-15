@@ -1,3 +1,5 @@
+// KEYOF, TYPEOF, AS CONST
+
 // indexing into types using their keys
 
 type Payment = {
