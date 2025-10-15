@@ -50,7 +50,7 @@ function handleActions(action: string) {
     console.log(action);
 }
 
-// hand-writing a type that matches our CONST list is not ideal either. How would we guarantee they stay in sync?
+// hand-writing a type that matches our EMAIL_ACTIONS list is not ideal either. How would we guarantee they stay in sync?
 
 
 

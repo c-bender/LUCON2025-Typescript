@@ -1,4 +1,4 @@
-// SUM TYPE HELPERS
+// PRODUCT TYPE HELPERS
 
 interface Person {
     firstName: string;

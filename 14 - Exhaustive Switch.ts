@@ -2,7 +2,7 @@
 
 type Colors = 'red' | 'green' | 'blue';
 
-//sidenote on fallthrough behavior in switches
+//in Typescript (and Javascript) switch constructs have fallthrough by default. Use return or break to avoid unintended behavior.
 
 // currently nothing guarantees that all input options have well-defined behavior
 function getRGB(color: Colors): number {
@@ -14,7 +14,8 @@ function getRGB(color: Colors): number {
 
 
 
-// a default case makes sure all cases are well-defined, but NOT that all branches are explicitly handled
+// a default branch makes sure behavior is well-defined for all possible inputs
+// but NOT that all possible inputs are covered in their own branches
 function getRGBWithDefault(color: Colors): number {
     switch(color) {
         case 'red': return 1;

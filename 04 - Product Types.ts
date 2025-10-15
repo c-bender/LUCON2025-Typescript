@@ -1,4 +1,4 @@
-// SUM TYPES
+// PRODUCT TYPES
 
 // like interfaces--they define an object shape
 type PersonType = {

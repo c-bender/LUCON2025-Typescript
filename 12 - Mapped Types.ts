@@ -8,7 +8,7 @@ interface UIActionsConfig {
     drop: Object;
 }
 
-//if we wanted to create a type that stored handlers for each of these actions, how would we do it?
+//if we wanted to create a type that defined handlers for each of these actions, how would we do it?
 //creating it manually wouldn't enforce that the two "stay in sync"
 
 interface UIActionsHandlers {
@@ -64,7 +64,7 @@ interface Person {
     phoneNumbers: number[]
 }
 
-//if all the types are primitives, we can map directly and return a form type
+//if all the types are primitives, we can map all the values to form controls (we would need a bit more logic to wrap that in a FormGroup)
 type FormFromSimpleObject<T> = {
     [K in keyof T]: FormControl<T[K]>
 }

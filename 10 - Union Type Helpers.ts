@@ -9,11 +9,13 @@ type NonRed = Exclude<Colors, 'red'>;
 type OnlyRed = Extract<Colors, 'red'>;
 
 
-// Note that the type parameters are not themselves strongly typed
+// Note that the type parameters of Extract and Exclude are not themselves strongly typed
 type Colors2 = 'redd' | 'greenn' | 'bluee';
 
 // We can pass a string that isn't included in the union. We also don't get autocomplete.
 type OnlyRed2 = Exclude<Colors2, 'red'>;
+
+
 
 
 // We have the tools for a better way, IF we have a SIMPLE union type:
@@ -34,6 +36,8 @@ type SubsetOfUnion<T extends SubsetOperation, U, V extends U> =
 type Size = SubsetOfUnion<'include from', ElementSize, 'small' | 'medium' | 'large'>;
 
 
+
+
 // So why are the built-in types not written like this? It's to allow greater flexibility in matching patterns.
 
 // Example
@@ -44,7 +48,7 @@ interface Circle {
 
 interface Square {
     kind: "square";
-    sideLength: number;
+    height: number;
 }
 
 interface Triangle {

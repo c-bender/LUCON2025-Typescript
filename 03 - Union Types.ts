@@ -1,4 +1,4 @@
-// UNION TYPES
+// UNION TYPES (sometimes called SUM TYPES)
 
 // like enums, they define a type-safe set of options
 
@@ -14,7 +14,7 @@ function getColorCode(color: string): number {
     }
 }
 
-// this code would error at runtime, but it compiles without better typing
+// this code would fail silently at runtime, but it compiles. Stricter typing is better.
 getColorCode('Invalid On Purpose')
 
 // union types facilitate type narrowing in the branches of conditional statements

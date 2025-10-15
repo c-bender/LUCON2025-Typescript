@@ -53,3 +53,7 @@ const inferredType = { message: 'test' };
 // TYPE SYSTEM FEATURES AS TOOLS
 // The following examples are often simplified
 // We are going to go fast
+
+
+//NOTE: the //^? syntax you might see is called a two-slash query.
+//They are enabled by the TwoSlash plugin in VS Code or the WITT plugin in IntelliJ

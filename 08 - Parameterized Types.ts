@@ -1,7 +1,7 @@
 // PARAMETERIZED TYPES
 
 // Types can include a reference to a parameter.
-// These are like "generics" in Java or Kotlin
+// These are like "generics" in Java, Kotlin, or many other languages
 
 // Here is a parameterized type that just gives you back whatever type you pass to it.
 type Tautology<T> = T;
@@ -43,9 +43,10 @@ type Payment = CashPayment | CardPayment | CheckPayment;
 
 
 
-// template literal types use backticks and create string literal types
+// template literal types use backticks and create string literal types and patterns
 type EventName = `on${Capitalize<string>}`;
 
 // doesn't meet the template definition, and so it won't compile
 const onChange: EventName = 'onchange';
+
 const onClose: EventName = 'onClose';

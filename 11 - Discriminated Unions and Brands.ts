@@ -3,7 +3,7 @@
 //DISCRIMINATED UNIONS
 
 // discriminated unions are union types where each member of the union shares a property or 'tag' that can be used to discriminate between them
-// this tag is then used for type narrowing and switch / if-then-else blocks
+// this tag is then used for type narrowing and control flow constructs (switch / if-then-else)
 
 export type WithLoading<T> = LoadedValue<T> | ErroredValue | LoadingValue;
 
@@ -33,7 +33,7 @@ function processAsyncCall(input: WithLoading<string>) {
 //BRANDS
 
 // Using intersections can allow us to 'brand' primitive types without having to create wrapper objects / value classes
-type Brand<T, B> = T & { _brand: B };
+type Brand<T, B extends string> = T & { _brand: B };
 
 type Username = Brand<string, 'username'>;
 

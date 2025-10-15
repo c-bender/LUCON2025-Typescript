@@ -1,6 +1,6 @@
 //RECURSIVE TYPES
 
-// you can use recursive structures in type definitions, typically using the ternary
+// you can use recursive structures in type definitions with the ternary operator
 
 // example: a utility type that recursively capitalizes all keys in an object
 

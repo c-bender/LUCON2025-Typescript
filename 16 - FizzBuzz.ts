@@ -1,3 +1,5 @@
+//FIZZBUZZ
+
 type UpperLimit = 100;
 
 type BoundedRange<
