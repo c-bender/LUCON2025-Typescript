@@ -20,7 +20,7 @@ type ArrayElementType<T> = T extends Array<infer U> ? U : never;
 type ElementType = ArrayElementType<number[]>;
 
 //example using parameterized types
-type PromiseReturnType<T extends Promise<any>> = T extends Promise<infer U> ? U :  never;
+type PromiseReturnType<T extends Promise<any>> = T extends Promise<infer U> ? U : never;
 
 type PromiseType = PromiseReturnType<Promise<{customObject: string}>>;
 

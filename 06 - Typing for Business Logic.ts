@@ -2,7 +2,7 @@
 
 //A Key Goal of Strong Typing: Make illegal states unrepresentable
 
-//Case: a 'Payment' object for an online business
+//Case: a 'Payment' object for a business
 type Payment = {
     customerName: string;
     paymentType: 'cash' | 'card' | 'check';
@@ -60,7 +60,7 @@ interface CardPayment {
 
 interface CheckPayment {
     customerName: string;
-    paymentType: 'card';
+    paymentType: 'check';
     bankName: 'chase' | 'wachovia';
 }
 

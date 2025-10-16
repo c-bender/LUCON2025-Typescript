@@ -1,6 +1,6 @@
 // MAPPED TYPES
 
-// a mapped type is a type defintion created by iterating over the keys of another object
+// a mapped type is a type definition created by iterating over the keys of another object
 
 interface UIActionsConfig {
     click: string;
